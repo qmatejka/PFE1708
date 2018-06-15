@@ -14,6 +14,27 @@
 // 
 package networks;
 
+import node.Node;
+
 network WattsAndStrogatz
 {
+    parameters:
+        int N @prompt("Number of nodes") = default(20);
+        int K @prompt("Number of edges before rewiring") = default(4);
+        double p @prompt("Probability of rewiring") = default(0.2);
+ 	submodules:
+ 	    node[N]: Node {
+ 	     	parameters:
+ 	     	    address = index;   
+ 	    }
+    connections allowunconnected:
+        //init
+        //if (K%2 == 0) {
+        for i=0..N, for j=1..K/2 {
+			node[i].port++ <--> {  delay = 0.1ms; datarate = 1Gbps; } <--> node[i+j].port++;
+        }
+        //}
+        
+        //rewiring
+ 
 }

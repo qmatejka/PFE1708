@@ -14,3 +14,12 @@
 // 
 
 package node;
+
+
+module Node
+{
+    parameters:
+        int address;
+    gates:
+        inout port[];
+}    
